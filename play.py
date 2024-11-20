@@ -1,5 +1,7 @@
 from src.main import *
 
+inicializar_juego()
+
 while(True):
-    inicializar_juego()
+    actualizar_pantalla()
     cerrar_juego()

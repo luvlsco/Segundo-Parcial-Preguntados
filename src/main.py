@@ -2,6 +2,8 @@ import pygame
 import sys
 
 from src.config import *
+from src.sounds import *
+from src.images import *
 
 
 pygame.init()
@@ -15,6 +17,12 @@ def inicializar_juego():
     '''
     pygame.display.set_mode((ANCHO, ALTO), pygame.RESIZABLE)
     pygame.display.set_caption("Preguntados [def grupo(guido, lucas, martin)]")
+    pygame.display.set_icon(utn_icono)
+
+    global sonido_apertura_reproducido
+    if sonido_apertura_reproducido == False:
+        sonido_apertura.play()
+        sonido_apertura_reproducido = True
 
 def cerrar_juego():
     '''
@@ -31,3 +39,6 @@ def cerrar_juego():
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
+
+def actualizar_pantalla():
+    pygame.display.update()
