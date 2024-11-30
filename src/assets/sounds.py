@@ -1,20 +1,19 @@
 # src/assets/sounds.py
 # Módulo usado para manejar los sonidos que se usan dentro del juego,
 # contiene las funciones generales para reproducir sonidos y las
-# variables de los efectos de sonido.
+# variables que almacenan los efectos de sonido.
 
 import pygame
 
-pygame.init()
-pygame.mixer.init()
+from src.game.config import *
 
 # Funciones generales para sonidos:
 # Delay de sonido (Esperar a que termine de reproducirse el efecto de sonido)
 def esperar_efecto_sonido(efecto_sonido: pygame.mixer.Sound):
     pygame.time.delay(int(efecto_sonido.get_length() * 1000))
 
-# Efectos de sonido (assets/sounds/sfx) (.ogg, .wav)
-def establecer_efecto_sonido(ruta: str, volumen: float):
+# Efectos de sonido (Ruta: assets/sounds/sfx)
+def cargar_efecto_sonido(ruta: str, volumen: float):
     '''
     Función para reproducir efectos de sonidos dentro del juego.
     ¿Qué hace?:
@@ -23,13 +22,16 @@ def establecer_efecto_sonido(ruta: str, volumen: float):
     ¿Qué recibe?:
         - ruta (str): Cadena que contiene la ruta del efecto de sonido (.ogg, wav)
         - volumen (float): Número flotante que controla el volumen del efecto de sonido
+    
+    ¿Qué retorna?:
+        - efecto_sonido: El efecto de sonido cargado.
     '''
     efecto_sonido = pygame.mixer.Sound(ruta)
     efecto_sonido.set_volume(volumen)
 
     return efecto_sonido
 
-# Música (assets/sounds/music) (.mp3)
+# Música (assets/sounds/music)
 def reproducir_musica(ruta: str, volumen: float, veces_a_reproducir: int):
     '''
     Función para reproducir música dentro del juego.
@@ -52,4 +54,9 @@ def reproducir_musica(ruta: str, volumen: float, veces_a_reproducir: int):
     pygame.mixer.music.play(veces_a_reproducir)
 
 # Variables que contienen los sonidos
-efecto_sonido_apertura = establecer_efecto_sonido("assets/sounds/sfx/abrir_juego.wav", 0.6)
+efecto_sonido_apertura = cargar_efecto_sonido("assets/sounds/sfx/abrir_juego.wav", 0.75)
+efecto_sonido_correcto = cargar_efecto_sonido("assets/sounds/sfx/correcto.mp3", 1)
+efecto_sonido_incorrecto = cargar_efecto_sonido("assets/sounds/sfx/incorrecto.mp3", 1)
+
+# UI (User Interface)
+ui_sonido_boton = cargar_efecto_sonido("assets/sounds/sfx/ui_sonido_boton.mp3", 1)

@@ -1,5 +1,25 @@
 import pygame
 import json
+import sys
+
+from src.game.config import *
+
+#
+def cerrar_juego():
+    '''
+    Función utilizada para cerrar el juego de manera segura.
+
+    Cuando el usuario hace clic en la [X] de la ventana, esta función maneja
+    el evento de cierre de la ventana y cierra el juego de manera segura utilizando
+    "pygame.quit()" y "sys.exit()".
+
+    Se debe usar esta función al principio de los bucles principales de las ventanas
+    para asegurar que el juego pueda cerrarse correctamente.
+    '''
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            sys.exit()
 
 def establecer_ventana(ancho: int, alto: int):
     return pygame.display.set_mode((ancho, alto), pygame.RESIZABLE)
@@ -67,7 +87,6 @@ def guardar_clasificacion(nombre, puntuacion):
         clasificacion = []
 
     clasificacion.append({"nombre": nombre, "puntuacion": puntuacion})
-
     clasificacion = sorted(clasificacion, key=lambda x: x["puntuacion"], reverse=True)
 
     # Guardar de nuevo el archivo
