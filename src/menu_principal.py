@@ -6,7 +6,9 @@ from src.game.config import *
 from src.game.functions import *
 from src.assets.images import *
 from src.assets.sounds import *
+
 from src.ventana_jugar import *
+from src.ventana_configuracion import *
 
 def mostrar_menu_principal(variable_ventana: pygame.Surface) -> pygame.Surface:
     # Establecer el título de la ventana y reproducir la música de fondo del menú
@@ -25,10 +27,11 @@ def mostrar_menu_principal(variable_ventana: pygame.Surface) -> pygame.Surface:
     corriendo_juego = True
 
     while corriendo_juego:
-        cerrar_juego()
-
     # Botones del menú principal
         for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                cerrar_juego()
+
             if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                 mouse_pos = event.pos # Posición del mouse al hacer clic
 
@@ -44,7 +47,7 @@ def mostrar_menu_principal(variable_ventana: pygame.Surface) -> pygame.Surface:
                     pass #variable_ventana = ventana_agregar_preguntas()
                 elif detectar_click(boton_configurar, boton_configurar_pos, mouse_pos):
                     ui_sonido_boton.play()
-                    pass #variable_ventana = ventana_configuracion()
+                    ventana_configuracion(variable_ventana)
                 elif detectar_click(boton_ver_top, boton_ver_top_pos, mouse_pos):
                     ui_sonido_boton.play()
                     pass #variable_ventana = ventana_top()

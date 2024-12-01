@@ -1,3 +1,6 @@
+# src/ventana_jugar.py
+# Módulo que controla la ventana principal del botón "jugar"
+
 import pygame
 import random
 
@@ -28,12 +31,13 @@ def ventana_jugar(variable_ventana: pygame.Surface) -> str:
 
     corriendo_juego = True
     while corriendo_juego:
-        cerrar_juego()
-
         variable_ventana.blit(pantalla_jugar, (0, 0))
 
         # Procesar eventos de clic
         for evento in pygame.event.get():
+            if evento.type == pygame.QUIT:
+                cerrar_juego()
+
             if evento.type == pygame.MOUSEBUTTONDOWN and not mostrando_respuesta:
                 mouse_pos = pygame.mouse.get_pos()
                 for i, opcion_rect in enumerate(opciones_rects):

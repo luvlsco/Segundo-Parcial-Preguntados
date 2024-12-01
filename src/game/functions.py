@@ -4,7 +4,7 @@ import sys
 
 from src.game.config import *
 
-#
+# Funciones generales que se usan en la mayoría de módulos:
 def cerrar_juego():
     '''
     Función utilizada para cerrar el juego de manera segura.
@@ -16,10 +16,8 @@ def cerrar_juego():
     Se debe usar esta función al principio de los bucles principales de las ventanas
     para asegurar que el juego pueda cerrarse correctamente.
     '''
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            pygame.quit()
-            sys.exit()
+    pygame.quit()
+    sys.exit()
 
 def establecer_ventana(ancho: int, alto: int):
     return pygame.display.set_mode((ancho, alto), pygame.RESIZABLE)

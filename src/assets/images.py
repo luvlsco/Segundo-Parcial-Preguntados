@@ -32,7 +32,7 @@ def cargar_imagen(ruta: str, ancho: int | None, alto: int | None):
     return imagen_cargada
 
 # <!> Imágenes:
-# Pantalla de carga y miscelaneos
+# Pantalla de carga y extras
 utn_icono = cargar_imagen("assets/images/icono_utn.png", None, None)
 imagen_pantalla_carga = cargar_imagen("assets/images/pantalla_carga.png", ANCHO, ALTO)
 
@@ -45,6 +45,9 @@ boton_ver_top = cargar_imagen("assets/images/boton_ver_top.png", None, None)
 
 # Ventana del juego (Al hacer clic en "Jugar" desde el menú principal)
 pantalla_jugar = cargar_imagen("assets/images/fondo_jugar.png", ANCHO, ALTO)
+
+# Ventana de la configuración del juego
+imagen_ventana_configuracion = cargar_imagen("assets/images/fondo_configurar.jpg", ANCHO, ALTO)
 
 # <!> Variables de posicionamiento:
 # Botones del menú principal
