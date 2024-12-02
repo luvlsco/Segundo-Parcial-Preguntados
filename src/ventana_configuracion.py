@@ -10,7 +10,6 @@ from src.assets.sounds import *
 def ventana_configuracion(variable_ventana: pygame.Surface) -> str:
     pygame.display.set_caption("Preguntados: Configuración")
     variable_ventana.blit(imagen_ventana_configuracion, (0, 0))
-    reproducir_musica("assets/sounds/music/menu_principal.mp3", 1, -1, False)
 
 
     boton_volver_inicio = crear_boton(

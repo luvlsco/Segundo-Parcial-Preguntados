@@ -19,6 +19,7 @@ def ventana_configurar_juego(variable_ventana: pygame.Surface) -> str:
 
     while True:
         configurar_fps(FPS)
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 cerrar_juego()

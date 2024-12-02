@@ -52,6 +52,10 @@ imagen_ventana_configuracion = cargar_imagen("assets/images/fondo_configurar.jpg
 # Ventana del ranking del juego ("Menú principal" -> "Ver ranking")
 ventana_top = cargar_imagen("assets/images/fondo_ranking.jpg", ANCHO, ALTO)
 
+# Ventana de agregar preguntas ("Menú principal" -> "Agregar preguntas")
+ventana_pregunta = cargar_imagen("assets/images/fondo_configurar.jpg", ANCHO, ALTO)
+ventana_agregar_pregunta = cargar_imagen("assets/images/fondo_agregar_pregunta.png", ANCHO, ALTO)
+
 # <!> Variables de posicionamiento:
 # Botones del menú principal
 boton_jugar_pos = (260, 440)

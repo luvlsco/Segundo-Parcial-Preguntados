@@ -31,7 +31,6 @@ def ventana_jugar(variable_ventana: pygame.Surface) -> str:
         configurar_fps(FPS)
         variable_ventana.blit(pantalla_jugar, (0, 0))
 
-        # Procesar eventos de clic
         for evento in pygame.event.get():
             if evento.type == pygame.QUIT:
                 cerrar_juego()
