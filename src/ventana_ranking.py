@@ -1,3 +1,6 @@
+# src/ventana_ranking.py
+# Módulo que controla la ventana de ranking del botón "Ver ranking"
+
 import pygame
 
 from src.game.functions import *
