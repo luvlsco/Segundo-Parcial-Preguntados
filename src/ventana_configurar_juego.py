@@ -9,7 +9,7 @@ from src.assets.sounds import *
 
 def ventana_configurar_juego(variable_ventana: pygame.Surface) -> str:
     global puntuacion_correcta, vidas
-    fuente = pygame.font.Font(None, 40)
+    fuente = cargar_fuente_personalizada("assets/fonts/fuente_preguntados.otf", 40)
     entrada = ""
     mensaje = "Ingrese puntos por respuesta:"
     posicion = (150, 200)
@@ -34,7 +34,7 @@ def ventana_configurar_juego(variable_ventana: pygame.Surface) -> str:
                     elif paso == 2:  
                         config.vidas = int(entrada) if entrada.isdigit() else 3
                         print(f"Nuevo valor de vidas: {config.vidas}")
-                        return "ventana_configurar_juego_volver"
+                        return "configurar_juego_volver"
 
                 elif event.key == pygame.K_BACKSPACE:
                     entrada = entrada[:-1]

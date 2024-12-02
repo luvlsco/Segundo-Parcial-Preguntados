@@ -25,7 +25,7 @@ def ventana_jugar(variable_ventana: pygame.Surface) -> str:
     pregunta_actual = 0 
     mostrando_respuesta = False
     color_respuesta = (255, 255, 0)
-    fuente = pygame.font.Font(None, 36)
+    fuente = cargar_fuente_personalizada("assets/fonts/fuente_preguntados.otf", 26)
 
     while True:
         configurar_fps(FPS)
@@ -54,13 +54,13 @@ def ventana_jugar(variable_ventana: pygame.Surface) -> str:
 
         # Mostrar pregunta
         pregunta_texto = fuente.render(diccionario_preguntas[pregunta_actual]["pregunta"], True, ((0, 0, 0)))
-        variable_ventana.blit(pregunta_texto, (50, 50))
+        variable_ventana.blit(pregunta_texto, (50, 45))
 
         # Mostrar opciones
         opciones_rects = []
         for i, opcion in enumerate(diccionario_preguntas[pregunta_actual]["opciones"]):
             opcion_texto = fuente.render(opcion, True, (0, 0, 0))
-            opcion_rect = opcion_texto.get_rect(topleft=(50, 150 + i * 50))
+            opcion_rect = opcion_texto.get_rect(topleft=(50, 143 + i * 50))
             opciones_rects.append(opcion_rect)
             variable_ventana.blit(opcion_texto, opcion_rect.topleft)
 
@@ -77,8 +77,8 @@ def ventana_jugar(variable_ventana: pygame.Surface) -> str:
         # Mostrar puntuación y vidas
         puntuacion_texto = fuente.render(f"Puntuación: {puntuacion}", True, (255, 255, 255))
         vidas_texto = fuente.render(f"Vidas: {vidas_jugando}", True, (235, 66, 112))
-        variable_ventana.blit(puntuacion_texto, (50, 500))
-        variable_ventana.blit(vidas_texto, (630, 505))
+        variable_ventana.blit(puntuacion_texto, (50, 495))
+        variable_ventana.blit(vidas_texto, (630, 500))
 
         # Revisar si se acabaron las vidas
         if vidas_jugando == 0:
@@ -100,8 +100,8 @@ def ventana_jugar(variable_ventana: pygame.Surface) -> str:
     reproducir_musica("assets/sounds/music/menu_principal.mp3", 1, -1, True)
 
     # Cuando toda la ventana termina de ejecutarse retorna esta cadena a la variable 
-    # "ventana_jugar_completada" usada en el menú principal "src/menu_principal.py" .
+    # "estado_ventana_jugar" usada en el menú principal "src/menu_principal.py" .
 
     # Esto es útil para evitar el uso de clases o una lista de pantallas, ya que se maneja
     # de manera más simple todas las ventanas del juego.
-    return "ventana_jugar_completada"
+    return "ventana_completada"

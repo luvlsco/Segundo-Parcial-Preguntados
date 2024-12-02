@@ -36,11 +36,11 @@ def ventana_configuracion(variable_ventana: pygame.Surface) -> str:
             elif evento.type == pygame.MOUSEBUTTONDOWN:
                 if boton_configuracion["boton_pos"].collidepoint(evento.pos):
                     ui_sonido_boton.play()
-                    return "ventana_configurar_juego"
+                    return "configurar_juego"
 
                 elif boton_volver_inicio["boton_pos"].collidepoint(evento.pos):
                     ui_sonido_boton.play()
-                    return "ventana_configuracion_volver"
+                    return "configuracion_volver"
 
         # Dibujar fondo y botón
         variable_ventana.blit(imagen_ventana_configuracion, (0, 0))
