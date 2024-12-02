@@ -7,10 +7,11 @@ from src.game.functions import *
 from src.assets.images import *
 from src.assets.sounds import *
 
+from src.ventana_configurar_juego import *
+
 def ventana_configuracion(variable_ventana: pygame.Surface) -> str:
     pygame.display.set_caption("Preguntados: Configuración")
     variable_ventana.blit(imagen_ventana_configuracion, (0, 0))
-
 
     boton_volver_inicio = crear_boton(
         path="assets/images/inicio.png",
@@ -23,7 +24,7 @@ def ventana_configuracion(variable_ventana: pygame.Surface) -> str:
         path="assets/images/boton_configurar.png",
         dimensiones=(200, 100),
         posicion=(300, 300),
-        funcion=None
+        funcion=lambda:ventana_configurar_juego(variable_ventana)
         )
 
     while True:
@@ -35,7 +36,7 @@ def ventana_configuracion(variable_ventana: pygame.Surface) -> str:
             elif evento.type == pygame.MOUSEBUTTONDOWN:
                 if boton_configuracion["boton_pos"].collidepoint(evento.pos):
                     ui_sonido_boton.play()
-                    return "configurar_juego"
+                    boton_configuracion["funcion"]()
 
                 elif boton_volver_inicio["boton_pos"].collidepoint(evento.pos):
                     ui_sonido_boton.play()

@@ -9,7 +9,6 @@ from src.assets.sounds import *
 
 from src.ventana_jugar import *
 from src.ventana_configuracion import *
-from src.ventana_configurar_juego import *
 from src.ventana_ranking import *
 from src.ventana_agregar_preguntas import *
 
@@ -61,13 +60,6 @@ def mostrar_menu_principal(variable_ventana: pygame.Surface) -> pygame.Surface:
 
                     if estado_ventana_configuracion == "configuracion_volver":
                         mostrar_menu_principal(variable_ventana)
-
-                    elif estado_ventana_configuracion == "configurar_juego":
-                        estado_ventana_configuracion = ventana_configurar_juego(variable_ventana)
-                    
-                        # [Configurar juego (Sub-Ventana)]
-                        if estado_ventana_configuracion == "configurar_juego_volver":
-                            mostrar_menu_principal(variable_ventana)
 
                 # [Ranking / Top]
                 elif detectar_click(boton_ver_top, boton_ver_top_pos, mouse_pos):

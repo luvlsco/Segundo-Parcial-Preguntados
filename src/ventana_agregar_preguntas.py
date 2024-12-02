@@ -1,10 +1,9 @@
 import pygame
 
 from src.game.functions import *
+from src.game.questions import *
 from src.assets.images import *
 from src.assets.sounds import *
-
-from src.game.questions import *
 
 from src.ventana_agregar import *
 
