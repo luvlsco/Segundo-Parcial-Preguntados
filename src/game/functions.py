@@ -1,3 +1,7 @@
+#src/game/functions.py
+
+# Módulo usado para almacenar las funciones generales y específicas del juego
+
 import pygame
 import json
 import sys
@@ -5,7 +9,7 @@ import sys
 from src.game.config import *
 
 # Funciones generales que se usan en la mayoría de módulos:
-def cerrar_juego():
+def cerrar_juego() -> None:
     '''
     Función utilizada para cerrar el juego de manera segura.
 
@@ -19,10 +23,43 @@ def cerrar_juego():
     pygame.quit()
     sys.exit()
 
-def establecer_ventana(ancho: int, alto: int):
+def configurar_fps(FPS: int) -> None:
+    '''
+    Función utilizada para configurar los FPS (Frames por segundo) del juego
+    
+    ¿Qué hace?:
+        Limita los FPS del juego, puede usarse en diferentes ventanas (para ahorrar recursos de la computadora del usuario)
+
+    ¿Qué recibe?:
+        - FPS: Número entero que define los FPS para limitarlos.
+    '''
+    clock = pygame.time.Clock()
+    clock.tick(FPS)
+
+def establecer_ventana(ancho: int, alto: int) -> pygame.Surface:
+    '''
+    Función para establecer una ventana de pygame
+
+    ¿Qué hace?:
+        Establece/configura una ventana de pygame.
+    ¿Qué recibe?:
+        - ancho (int): Número entero que define el ancho de la ventana
+        - alto (int): Número entero que define el alto de la ventana
+    ¿Qué retorna?:
+        pygame.Surface: La superficie de la ventana establecida.
+    '''
     return pygame.display.set_mode((ancho, alto), pygame.RESIZABLE)
 
-def actualizar_pantalla():
+def actualizar_pantalla() -> None:
+    '''
+    Función simple que actualiza la ventana de Pygame.
+
+    ¿Por qué es necesaria?:
+        Con fines estéticos para el código, existen dos formas de actualizar las ventanas de Pygame:
+            - pygame.display.update()
+            - pygame.display.flip()
+        Para no usar ambos en el código, se creó esta función para usar uno y mejorar la visibilidad cuando se actualiza la pantalla.
+    '''
     pygame.display.update()
 
 def crear_boton(path: str, dimensiones: tuple, posicion: tuple, funcion):
@@ -49,6 +86,8 @@ def detectar_click(imagen, posicion, mouse_pos):
     ancho, alto = imagen.get_size()
     return x <= mouse_pos[0] <= x + ancho and y <= mouse_pos[1] <= y + alto
 
+
+# Funciones específicas que se usan en algunos módulos
 def solicitar_nombre(ventana, fuente):
     bandera = True
     nombre = ""
@@ -77,11 +116,9 @@ def solicitar_nombre(ventana, fuente):
 def guardar_clasificacion(nombre, puntuacion):
     archivo = "ranking.json"
     try:
-
         with open(archivo, "r") as f:
             clasificacion = json.load(f)
     except FileNotFoundError:
-
         clasificacion = []
 
     clasificacion.append({"nombre": nombre, "puntuacion": puntuacion})

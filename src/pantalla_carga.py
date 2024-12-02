@@ -11,11 +11,7 @@ def mostrar_pantalla_carga(variable_ventana: pygame.Surface) -> None:
     Función que muestra la pantalla de carga antes del menú principal.
 
     ¿Qué hace?:
-    1. Establece el título y el icono de la ventana del juego.
-    2. Reproduce el efecto de sonido de apertura.
-    3. Muestra la imagen de carga en la ventana.
-    4. Actualiza la pantalla para mostrar la imagen de carga.
-    5. Espera a que termine de reproducirse el sonido de apertura antes de mostrar el menú principal.
+        Muestra la imagen de la pantalla de carga y establece el icono de la ventana que se usa en el juego, reproduce el sonido de apertura y pasa al menú principal.
     
     ¿Qué recibe?:
         - variable_ventana (pygame.Surface): La ventana donde se renderiza la pantalla de carga.

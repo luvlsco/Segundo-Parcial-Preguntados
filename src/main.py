@@ -1,3 +1,6 @@
+# src/main.py
+# Módulo principal que carga la ventana del juego, la variable de la ventana se usa en todas las funciones de tipo "ventana_" bajo el nombre "variable_ventana"
+
 from src.game.config import *
 from src.game.functions import *
 from src.assets.sounds import *

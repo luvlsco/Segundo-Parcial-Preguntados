@@ -1,36 +1,34 @@
 # src/ventana_jugar.py
-# Módulo que controla la ventana principal del botón "jugar"
+# Módulo que controla la ventana principal del botón "Jugar"
 
 import pygame
 import random
+import src.game.config as config
 
-from src.game.config import *
 from src.game.questions import *
 from src.game.functions import *
 
 from src.assets.images import *
 from src.assets.sounds import *
 
-#puntuacion = 0
-puntuacion_correcta = 1
-#vidas = 3
-
 def ventana_jugar(variable_ventana: pygame.Surface) -> str:
     # Cambiar el título de la ventana, establecer la fuente y reproducir la música
     pygame.display.set_caption("Preguntados: Jugando")
-    fuente = pygame.font.Font(None, 36)
-    reproducir_musica("assets/sounds/music/ventana_jugar.mp3", 1, -1)
+    random.shuffle(diccionario_preguntas)
+    reproducir_musica("assets/sounds/music/ventana_jugar.mp3", 1, -1, True)
 
-    global puntuacion_correcta, vidas, puntuacion
-    puntuacion = 0
-    vidas = 3
-    pregunta_actual = 0
+    # Importación de las configuraciones
+    global puntuacion_correcta, vidas
+    puntuacion = 0 # Puntuación (Acumulador)
+    vidas_jugando = config.vidas
+
+    pregunta_actual = 0 
     mostrando_respuesta = False
     color_respuesta = (255, 255, 0)
-    random.shuffle(diccionario_preguntas)
+    fuente = pygame.font.Font(None, 36)
 
-    corriendo_juego = True
-    while corriendo_juego:
+    while True:
+        configurar_fps(FPS)
         variable_ventana.blit(pantalla_jugar, (0, 0))
 
         # Procesar eventos de clic
@@ -44,11 +42,11 @@ def ventana_jugar(variable_ventana: pygame.Surface) -> str:
                     if opcion_rect.collidepoint(mouse_pos):
 
                         if i == diccionario_preguntas[pregunta_actual]["respuesta_correcta"]:
-                            puntuacion += puntuacion_correcta
+                            puntuacion += config.puntuacion_correcta
                             color_respuesta = ((0, 255, 0))
                             efecto_sonido_correcto.play()
                         else:
-                            vidas -= 1
+                            vidas_jugando -= 1
                             color_respuesta = ((255, 0, 0))
                             efecto_sonido_incorrecto.play()
                         mostrando_respuesta = True
@@ -74,17 +72,17 @@ def ventana_jugar(variable_ventana: pygame.Surface) -> str:
             color_respuesta = (255, 255, 0)
             pregunta_actual += 1
             if pregunta_actual >= len(diccionario_preguntas):
-                corriendo_juego = False
+                break
 
         # Mostrar puntuación y vidas
         puntuacion_texto = fuente.render(f"Puntuación: {puntuacion}", True, (255, 255, 255))
-        vidas_texto = fuente.render(f"Vidas: {vidas}", True, (235,66, 112))
+        vidas_texto = fuente.render(f"Vidas: {vidas_jugando}", True, (235, 66, 112))
         variable_ventana.blit(puntuacion_texto, (50, 500))
-        variable_ventana.blit(vidas_texto, (650, 500))
+        variable_ventana.blit(vidas_texto, (630, 505))
 
         # Revisar si se acabaron las vidas
-        if vidas == 0:
-            corriendo_juego = False
+        if vidas_jugando == 0:
+            break
 
         actualizar_pantalla()
 
@@ -93,14 +91,17 @@ def ventana_jugar(variable_ventana: pygame.Surface) -> str:
     mensaje_final = fuente.render("¡Fin del juego!", True, (255, 255, 255))
     puntuacion_final = fuente.render(f"Puntuación final: {puntuacion}", True, (255, 255, 255))
     variable_ventana.blit(mensaje_final, (300, 250))
-    variable_ventana.blit(puntuacion_final, (300, 300))
+    variable_ventana.blit(puntuacion_final, (275, 300))
     actualizar_pantalla()
     pygame.time.wait(3000)
 
     nombre = solicitar_nombre(variable_ventana, fuente)
     guardar_clasificacion(nombre, puntuacion)
+    reproducir_musica("assets/sounds/music/menu_principal.mp3", 1, -1, True)
 
-    # Cuando toda la ventana termina de ejecutarse retorna esta cadena a la variable usada en el menú principal "src/menu_principal.py".
+    # Cuando toda la ventana termina de ejecutarse retorna esta cadena a la variable 
+    # "ventana_jugar_completada" usada en el menú principal "src/menu_principal.py" .
+
     # Esto es útil para evitar el uso de clases o una lista de pantallas, ya que se maneja
     # de manera más simple todas las ventanas del juego.
     return "ventana_jugar_completada"

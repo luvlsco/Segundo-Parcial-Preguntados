@@ -9,7 +9,7 @@ from src.game.config import *
 
 # Función general para imágenes:
 # Cargar imagenes (Ruta: assets/images)
-def cargar_imagen(ruta: str, ancho: int | None, alto: int | None):
+def cargar_imagen(ruta: str, ancho: int | None, alto: int | None) -> pygame.Surface:
     '''
     Función para cargar una imagen en Pygame y, opcionalmente, redimensionarla.
 
