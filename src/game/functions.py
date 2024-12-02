@@ -62,6 +62,26 @@ def actualizar_pantalla() -> None:
     '''
     pygame.display.update()
 
+def cargar_fuente_personalizada(ruta: str, tamaño: int) -> pygame.font.Font | None:
+    '''
+    Función para cargar una fuente de texto.
+
+    ¿Qué hace?:
+        Carga una fuente para usarla en el juego.
+
+    ¿Qué recibe?:
+        - ruta (str): Cadena que contiene la ruta de la fuente
+        - tamaño (int): Número entero que configura el tamaño de la fuente
+
+    ¿Qué retorna?:
+        - pygame.font.Font: La fuente cargada
+        - None: Nada si la fuente no existe o no se encuentra en la ruta
+    '''
+    try:
+        return pygame.font.Font(ruta, tamaño)
+    except FileNotFoundError:
+        return None
+
 def crear_boton(path: str, dimensiones: tuple, posicion: tuple, funcion):
     boton = {}
     boton["surface"] = pygame.image.load(path)
@@ -85,6 +105,28 @@ def detectar_click(imagen, posicion, mouse_pos):
     x, y = posicion
     ancho, alto = imagen.get_size()
     return x <= mouse_pos[0] <= x + ancho and y <= mouse_pos[1] <= y + alto
+
+def pedir_entero(mensaje: str, mensaje_error: str, minimo: int | bool = False, maximo: int | bool = False) -> int:
+    """
+    Pide un mensaje, un mensaje de error y límites opcionales mínimo y máximo.
+    Muestra el mensaje y solicita que se ingrese un entero. Si el valor ingresado no está
+    dentro de los límites especificados, se vuelve a pedir con el mensaje de error.
+
+    Devuelve:
+        Un número entero que cumple con los límites especificados.
+    """
+
+    while True:
+        try:
+            retorno = int(input(mensaje))
+            if (minimo != False and retorno < minimo) or (maximo != False and retorno > maximo):
+                print(mensaje_error)
+            else:
+                return retorno
+            
+        except ValueError:
+            print(mensaje_error)
+
 
 
 # Funciones específicas que se usan en algunos módulos
@@ -127,3 +169,22 @@ def guardar_clasificacion(nombre, puntuacion):
     # Guardar de nuevo el archivo
     with open(archivo, "w") as f:
         json.dump(clasificacion, f, indent=4)
+
+def cargar_clasificacion(ruta_json):
+    try:
+        with open(ruta_json, 'r') as archivo:
+            return json.load(archivo)
+    except FileNotFoundError:
+        print(f"Error: No se encontró el archivo {ruta_json}")
+        return []
+    except json.JSONDecodeError:
+        print(f"Error: El archivo {ruta_json} no tiene un formato JSON válido")
+        return []
+
+def graficar_clasificacion(ventana, clasificacion, fuente, posicion_inicial):
+    y_offset = 0
+    for indice, jugador in enumerate(clasificacion[:10]):
+        texto = f"{indice + 1}. {jugador['nombre']} - {jugador['puntuacion']} puntos"
+        texto_render = fuente.render(texto, True, (255, 255, 255))
+        ventana.blit(texto_render, (posicion_inicial[0], posicion_inicial[1] + y_offset))
+        y_offset += 40
