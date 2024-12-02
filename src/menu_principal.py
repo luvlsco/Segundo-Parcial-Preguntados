@@ -11,6 +11,7 @@ from src.ventana_jugar import *
 from src.ventana_configuracion import *
 from src.ventana_configurar_juego import *
 from src.ventana_ranking import *
+from src.ventana_agregar_preguntas import *
 
 def mostrar_menu_principal(variable_ventana: pygame.Surface) -> pygame.Surface:
     # Establecer el título de la ventana y reproducir la música de fondo del menú
@@ -48,7 +49,10 @@ def mostrar_menu_principal(variable_ventana: pygame.Surface) -> pygame.Surface:
                 # [Agregar preguntas]
                 elif detectar_click(boton_agregar, boton_agregar_pos, mouse_pos):
                     ui_sonido_boton.play()
-                    pass #variable_ventana = ventana_agregar_preguntas()
+                    estado_ventana_agregar_preguntas = ventana_agregar_preguntas(variable_ventana)
+
+                    if estado_ventana_agregar_preguntas == "agregar_preguntas_volver":
+                        mostrar_menu_principal(variable_ventana)
 
                 # [Configuración]
                 elif detectar_click(boton_configurar, boton_configurar_pos, mouse_pos):
