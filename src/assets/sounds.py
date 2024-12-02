@@ -66,3 +66,4 @@ efecto_sonido_incorrecto = cargar_efecto_sonido("assets/sounds/sfx/incorrecto.mp
 # UI (User Interface)
 ui_sonido_boton = cargar_efecto_sonido("assets/sounds/sfx/ui_sonido_boton.mp3", 1)
 ui_sonido_boton_jugar = cargar_efecto_sonido("assets/sounds/sfx/ui_sonido_boton_jugar.mp3", 1)
+ui_sonido_boton_ranking = cargar_efecto_sonido("assets/sounds/sfx/ui_sonido_boton_ranking.wav", 1)

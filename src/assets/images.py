@@ -43,11 +43,14 @@ boton_agregar = cargar_imagen("assets/images/boton_agregar.png", None, None)
 boton_configurar = cargar_imagen("assets/images/boton_configurar.png", None, None)
 boton_ver_top = cargar_imagen("assets/images/boton_ver_top.png", None, None)
 
-# Ventana del juego (Al hacer clic en "Jugar" desde el menú principal)
+# Ventana del juego ("Menú principal" -> "Jugar")
 pantalla_jugar = cargar_imagen("assets/images/fondo_jugar.png", ANCHO, ALTO)
 
-# Ventana de la configuración del juego
+# Ventana de la configuración del juego ("Menú principal" -> "Cambiar opciones")
 imagen_ventana_configuracion = cargar_imagen("assets/images/fondo_configurar.jpg", ANCHO, ALTO)
+
+# Ventana del ranking del juego ("Menú principal" -> "Ver ranking")
+ventana_top = cargar_imagen("assets/images/fondo_ranking.jpg", ANCHO, ALTO)
 
 # <!> Variables de posicionamiento:
 # Botones del menú principal
