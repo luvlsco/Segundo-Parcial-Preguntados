@@ -10,6 +10,7 @@ from src.assets.sounds import *
 from src.ventana_jugar import *
 from src.ventana_configuracion import *
 from src.ventana_configurar_juego import *
+from src.ventana_ranking import *
 
 def mostrar_menu_principal(variable_ventana: pygame.Surface) -> pygame.Surface:
     # Establecer el título de la ventana y reproducir la música de fondo del menú
@@ -39,9 +40,9 @@ def mostrar_menu_principal(variable_ventana: pygame.Surface) -> pygame.Surface:
                 # [Jugar]
                 if detectar_click(boton_jugar, boton_jugar_pos, mouse_pos):
                     ui_sonido_boton_jugar.play()
-                    ventana_jugar_completada = ventana_jugar(variable_ventana)
+                    estado_ventana_jugar = ventana_jugar(variable_ventana)
 
-                    if ventana_jugar_completada == "ventana_jugar_completada":
+                    if estado_ventana_jugar == "ventana_completada":
                         mostrar_menu_principal(variable_ventana)
 
                 # [Agregar preguntas]
@@ -52,19 +53,22 @@ def mostrar_menu_principal(variable_ventana: pygame.Surface) -> pygame.Surface:
                 # [Configuración]
                 elif detectar_click(boton_configurar, boton_configurar_pos, mouse_pos):
                     ui_sonido_boton.play()
-                    ventana_configuracion_volver = ventana_configuracion(variable_ventana)
+                    estado_ventana_configuracion = ventana_configuracion(variable_ventana)
 
-                    if ventana_configuracion_volver == "ventana_configuracion_volver":
+                    if estado_ventana_configuracion == "configuracion_volver":
                         mostrar_menu_principal(variable_ventana)
 
-                    elif ventana_configuracion_volver == "ventana_configurar_juego":
-                        ventana_configuracion_volver = ventana_configurar_juego(variable_ventana)
+                    elif estado_ventana_configuracion == "configurar_juego":
+                        estado_ventana_configuracion = ventana_configurar_juego(variable_ventana)
                     
                         # [Configurar juego (Sub-Ventana)]
-                        if ventana_configuracion_volver == "ventana_configurar_juego_volver":
+                        if estado_ventana_configuracion == "configurar_juego_volver":
                             mostrar_menu_principal(variable_ventana)
 
                 # [Ranking / Top]
                 elif detectar_click(boton_ver_top, boton_ver_top_pos, mouse_pos):
-                    ui_sonido_boton.play()
-                    pass #variable_ventana = ventana_top()
+                    ui_sonido_boton_ranking.play()
+                    estado_ventana_ranking = ventana_ranking(variable_ventana)
+                    
+                    if estado_ventana_ranking == "ranking_volver":
+                        mostrar_menu_principal(variable_ventana)
