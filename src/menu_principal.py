@@ -13,6 +13,17 @@ from src.ventana_ranking import *
 from src.ventana_agregar_preguntas import *
 
 def mostrar_menu_principal(variable_ventana: pygame.Surface) -> pygame.Surface:
+    '''
+    Función que carga el menú principal con todas las opciones disponibles.
+
+    ¿Qué hace?:
+        - Muestra el menú con los distintos botones interactivos.
+        - Permite al usuario navegar entre las distintas ventanas, pudiendo configurar el juego, agregar preguntas o ver el ranking con los 10 mejores puntajes.
+
+    ¿Qué recibe?
+        - variable_ventana: Donde se grafica la ventana con los elementos visuales.
+        
+    '''
     # Establecer el título de la ventana y reproducir la música de fondo del menú
     pygame.display.set_caption("Preguntados: Menú principal [def grupo(guido, lucas, martin)]")
     reproducir_musica("assets/sounds/music/menu_principal.mp3", 1, -1, False)

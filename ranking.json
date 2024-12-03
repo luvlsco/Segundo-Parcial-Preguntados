@@ -1,1 +1,10 @@
-[]
+[
+    {
+        "nombre": "martin v2",
+        "puntuacion": 25
+    },
+    {
+        "nombre": "",
+        "puntuacion": 20
+    }
+]

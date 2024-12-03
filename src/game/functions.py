@@ -83,12 +83,27 @@ def cargar_fuente_personalizada(ruta: str, tamaño: int) -> pygame.font.Font | N
         return None
 
 def crear_boton(path: str, dimensiones: tuple, posicion: tuple, funcion):
-    boton = {}
-    boton["surface"] = pygame.image.load(path)
-    boton["surface"] = pygame.transform.scale(boton["surface"], dimensiones)
-    boton["boton_pos"] = pygame.Rect(posicion, dimensiones)  # Rectángulo en la posición correcta
-    boton["funcion"] = funcion  # Almacenar la función sin ejecutarla
-    return boton
+    
+        '''
+    Función para crear un botón.
+
+    ¿Qué hace?:
+        Crea un boton.
+
+    ¿Qué recibe?:
+        - path (str): Directorio que contiene la imagen a utilizar.
+        - dimensiones (tuple): El tamaño del botón (Ancho x largo).
+
+    ¿Qué retorna?:
+        - botón con las especificaciones otorgadas.
+    '''
+        
+        boton = {}
+        boton["surface"] = pygame.image.load(path)
+        boton["surface"] = pygame.transform.scale(boton["surface"], dimensiones)
+        boton["boton_pos"] = pygame.Rect(posicion, dimensiones)  # Rectángulo en la posición correcta
+        boton["funcion"] = funcion  # Almacenar la función sin ejecutarla
+        return boton
 
 def detectar_click(imagen, posicion, mouse_pos):
     '''
@@ -130,61 +145,121 @@ def pedir_entero(mensaje: str, mensaje_error: str, minimo: int | bool = False, m
 
 
 # Funciones específicas que se usan en algunos módulos
+
 def solicitar_nombre(ventana, fuente):
-    bandera = True
-    nombre = ""
-    while bandera:
-        for evento in pygame.event.get():
-            if evento.type == pygame.QUIT:
-                bandera = False
-            if evento.type == pygame.KEYDOWN:
-                if evento.key == pygame.K_RETURN:
+        '''
+    Función que solicita un nombre.
+
+    ¿Qué hace?:
+        - Solicita una cadena de caracteres / nombre.
+        - Baraja distintas posibilidades de eventos. Pudiendo cerrar el juego, escribir el nombre y poder borrar un caracter en caso de equivocación.
+        - Muestra en pantalla las consignas
+
+    ¿Qué recibe?:
+        - ventana: variable definida anteriormente que hace referencia a la ventana del juego en si.
+        - fuente: fuente de texto utilizada para mostrar el mensaje en pantalla. 
+
+    ¿Qué retorna?:
+        - nombre: guarda la variable nombre con los datos ingresados por el usuario.
+    '''
+        
+        bandera = True
+        nombre = ""
+        while bandera:
+            for evento in pygame.event.get():
+                if evento.type == pygame.QUIT:
                     bandera = False
-                elif evento.key == pygame.K_BACKSPACE:
-                    nombre = nombre[:-1]
-                else:
-                    nombre += evento.unicode
+                if evento.type == pygame.KEYDOWN:
+                    if evento.key == pygame.K_RETURN:
+                        bandera = False
+                    elif evento.key == pygame.K_BACKSPACE:
+                        nombre = nombre[:-1]
+                    else:
+                        nombre += evento.unicode
 
-        # Mostrar entrada de texto
-        ventana.fill((0, 0, 0))
-        mensaje = fuente.render("Ingrese su nombre y presione Enter:", True, (255, 255, 255))
-        texto_nombre = fuente.render(nombre, True, (255, 255, 255))
-        ventana.blit(mensaje, (50, 250))
-        ventana.blit(texto_nombre, (50, 300))
-        pygame.display.flip()
+            # Mostrar entrada de texto
+            ventana.fill((0, 0, 0))
+            mensaje = fuente.render("Ingrese su nombre y presione Enter:", True, (255, 255, 255))
+            texto_nombre = fuente.render(nombre, True, (255, 255, 255))
+            ventana.blit(mensaje, (50, 250))
+            ventana.blit(texto_nombre, (50, 300))
+            pygame.display.flip()
 
-    return nombre
+        return nombre
 
 def guardar_clasificacion(nombre, puntuacion):
-    archivo = "ranking.json"
-    try:
-        with open(archivo, "r") as f:
-            clasificacion = json.load(f)
-    except FileNotFoundError:
-        clasificacion = []
+        '''
+    Función para guardar la clasificación.
 
-    clasificacion.append({"nombre": nombre, "puntuacion": puntuacion})
-    clasificacion = sorted(clasificacion, key=lambda x: x["puntuacion"], reverse=True)
+    ¿Qué hace?:
+        - Guarda la clasificacion después de cada partida, agregando el nombre del jugador y el puntaje obtenido.
 
-    # Guardar de nuevo el archivo
-    with open(archivo, "w") as f:
-        json.dump(clasificacion, f, indent=4)
+    ¿Qué recibe?:
+        - nombre: variable obtenida en la funcion de solicitar_nombre.
+        - puntuación: puntuación final obtenida en el juego.
+
+    ¿Qué retorna?:
+        - None, simplemente agrega el nombre y la puntuacion de cada jugador en el archivo ranking.json
+    '''
+        archivo = "ranking.json"
+        try:
+            with open(archivo, "r") as f: # Con r abre el archivo en modo de lectura.
+                clasificacion = json.load(f)
+        except FileNotFoundError:
+            clasificacion = [] # Si el archivo no existe, lo crea.
+
+        clasificacion.append({"nombre": nombre, "puntuacion": puntuacion})
+        clasificacion = sorted(clasificacion, key=lambda x: x["puntuacion"], reverse=True)
+
+        # Guardar de nuevo el archivo
+        with open(archivo, "w") as f: # Con w abre el archivo en modo de escritura.
+            json.dump(clasificacion, f, indent=4) # indent = 4 mejora la lectura haciendolo mas comodo de leer, es simplemente por comodidad.
 
 def cargar_clasificacion(ruta_json):
-    try:
-        with open(ruta_json, 'r') as archivo:
-            return json.load(archivo)
-    except FileNotFoundError:
-        print(f"Error: No se encontró el archivo {ruta_json}")
-        return []
-    except json.JSONDecodeError:
-        print(f"Error: El archivo {ruta_json} no tiene un formato JSON válido")
-        return []
+        '''
+    Función que carga la clasificación / ranking.
+
+    ¿Qué hace?:
+        Carga la tabla de clasificación y abre el archivo en modo de lectura.
+
+    ¿Qué recibe?:
+        - ruta_json: ruta que contiene el archivo .json
+
+    ¿Qué retorna?:
+        - devuelve el contenido del archivo .json en forma de lista.
+        - si hay un error, devuelve una lista vacia
+    '''
+        try:
+            with open(ruta_json, 'r') as archivo:
+                return json.load(archivo)
+        except FileNotFoundError:
+            print(f"Error: No se encontró el archivo {ruta_json}")
+            return []
+        except json.JSONDecodeError:
+            print(f"Error: El archivo {ruta_json} no tiene un formato JSON válido")
+            return []
 
 def graficar_clasificacion(ventana, clasificacion, fuente, posicion_inicial):
-    y_offset = 0
-    for indice, jugador in enumerate(clasificacion[:10]):
-        texto = f"{indice + 1}. {jugador['nombre']} - {jugador['puntuacion']} puntos"
-        texto_render = fuente.render(texto, True, (255, 255, 255))
-        ventana.blit(texto_render, (posicion_inicial[0], posicion_inicial[1] + y_offset))
-        y_offset += 40
+        '''
+    Función que grafica la tabla de clasificacion.
+
+    ¿Qué hace?:
+        - Toma del archivo con la lista de jugadores los nombres y la puntuacion.
+        - Muestra a los 10 primeros jugadores enumerados según su puntaje.
+        - Posiciona a los jugadores en nuevas lineas utilizando un desplazamiento vertical (y_offset) empezando desde "posicion inicial".
+
+    ¿Qué recibe?:
+        - Ventana: ventana del juego donde se dibujará la tabla de clasificación.
+        - Clasificacion: La lista con los datos de los jugadores.
+        - Fuente: fuente a utilizar para renderizar el texto.
+        - Posicion_inicial: una tupla que utiliza (x, y) para indicar donde se empieza a dibujar el ranking.
+
+    ¿Qué retorna?:
+        - Nada, solo grafica la tabla de posiciones.
+    '''
+        y_offset = 0
+        for indice, jugador in enumerate(clasificacion[:10]):
+            texto = f"{indice + 1}. {jugador['nombre']} - {jugador['puntuacion']} puntos"
+            texto_render = fuente.render(texto, True, (255, 255, 255))
+            ventana.blit(texto_render, (posicion_inicial[0], posicion_inicial[1] + y_offset))
+            y_offset += 40

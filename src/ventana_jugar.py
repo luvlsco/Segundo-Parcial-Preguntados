@@ -12,6 +12,22 @@ from src.assets.images import *
 from src.assets.sounds import *
 
 def ventana_jugar(variable_ventana: pygame.Surface) -> str:
+    '''
+    Función para mostrar en pantalla el juego.
+
+    ¿Qué hace?:
+        - Gestiona el juego, controla las preguntas y respuestas, verifica las respuestas correctas y actualiza la puntuación y resta vidas en caso de error.
+        - Detecta los clicks y ejecuta los eventos correspondientes.
+        - Muestra un mensaje indicando el final del juego
+        - Pide el ingreso del nombre del jugador para guardarlo en el ranking
+
+    ¿Qué recibe?:
+        - variable_ventana: Donde se renderiza el juego 
+
+    ¿Qué retorna?:
+        - ventana_completada: Indica que el juego terminó correctamente.
+    '''
+
     # Cambiar el título de la ventana, establecer la fuente y reproducir la música
     pygame.display.set_caption("Preguntados: Jugando")
     random.shuffle(diccionario_preguntas)

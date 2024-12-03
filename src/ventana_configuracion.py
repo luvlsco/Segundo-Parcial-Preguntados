@@ -10,6 +10,20 @@ from src.assets.sounds import *
 from src.ventana_configurar_juego import *
 
 def ventana_configuracion(variable_ventana: pygame.Surface) -> str:
+    '''
+    Función que muestra la ventana para configurar el juego.
+
+    ¿Qué hace?:
+        - Crea los botones para volver al inicio y para poder configurar el juego.
+        - Detecta los eventos, si el usuario cierra el juego o si clickea los botones.
+        - Dibuja los elementos con blit 
+
+    ¿Qué recibe?:
+        - variable_ventana: Donde se grafica la ventana.
+
+    ¿Qué retorna?:
+        - configuracion_volver: si el usuario presiona el boton de volver al inicio, lo hace y guarda los valores introducidos.
+    '''
     pygame.display.set_caption("Preguntados: Configuración")
     variable_ventana.blit(imagen_ventana_configuracion, (0, 0))
 

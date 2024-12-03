@@ -8,6 +8,22 @@ from src.assets.images import *
 from src.assets.sounds import *
 
 def ventana_configurar_juego(variable_ventana: pygame.Surface) -> str:
+    '''
+    Función que muestra la ventana que pide los valores para configurar.
+
+    ¿Qué hace?:
+        - Solicita dos valores, uno para los puntos por respuesta correcto y otro para la cantidad de vidas.
+        - Actualiza los valores de vida y puntuacion por respuesta correcta.
+        - Muestra las consignas en pantalla.
+        - Gestiona eventos ejecutables.
+
+    ¿Qué recibe?:
+        - variable_ventana: Donde se renderiza la ventana.
+    
+    ¿Qué retorna?:
+        - configurar_juego_volver: Indica que se terminó de configurar y vuelve al inicio.
+    '''
+    
     global puntuacion_correcta, vidas
     fuente = cargar_fuente_personalizada("assets/fonts/fuente_preguntados.otf", 40)
     entrada = ""
